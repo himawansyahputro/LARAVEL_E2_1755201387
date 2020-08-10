@@ -1,7 +1,5 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,19 +10,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-/*
-Route::get('mhs', 'MahasiswaController@index');//Praktek Pertemuan 10
-//Route::get('dosen', 'DosenController@index');//Pert 11 : Membuat Halaman Template
-Route::get('mhs_list', 'MahasiswaController@mhs_list')->name('mhs_list');//Praktek Pertemuan 12 */
-////////////////////////
-
+//Route::get('mhs', 'MahasiswaController@index'); 
+//Route::get('mhs_list', 'MahasiswaController@mhs_list')->name('mhs_list');
 Route::get('/', 'MahasiswaController@index');
-//Mahasiswa (Routing Detail  satu persatu])
+//Mahasiswa (Route dengan detail satu persatu)
 Route::get('/mhs', 'MahasiswaController@index')->name('mhs.index');
 Route::get('/mhs/list', 'MahasiswaController@mhs_list')->name('mhs.list');
 Route::get('/mhs/create', 'MahasiswaController@create');
@@ -32,7 +25,5 @@ Route::post('/mhs/store', 'MahasiswaController@store');
 Route::get('/mhs/edit/{nim}', 'MahasiswaController@edit');
 Route::put('/mhs/update/{mahasiswa:nim}', 'MahasiswaController@update')->name('mhs.update');
 Route::get('/mhs/delete/{mahasiswa:nim}', 'MahasiswaController@destroy')->name('mhs.delete');
-//Prodi Routing
+//Prodi (Route Framework)
 Route::resource('/prodi', 'ProdiController');
-
-Route::resource('/matkul', 'MatkulController');

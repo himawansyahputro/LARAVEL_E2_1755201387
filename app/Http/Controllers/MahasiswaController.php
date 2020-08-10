@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Prodi;
 use App\Mahasiswa;
-//use App\prodi;//bikin app prodi
 use Illuminate\Http\Request;
-//use DataTables;//pertemuan 12
 use Yajra\DataTables\Facades\DataTables;
 class MahasiswaController extends Controller
 {
@@ -16,20 +15,8 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-      //  return "Halaman index Mahasiswa";//Praktek Pertemuan 10  //
-      // $mhs = Mahasiswa::where('nim', '1755201387')->first();//Praktek Pertemuan 10
-      // return $mhs->nama_lengkap;//Praktek Pertemuan 10
-      return view('mahasiswa.index'); 
+        return view('mahasiswa.index');
     }
-
-    public function mhs_list()//pertemuan 12
-    {
-       return Datatables::of(Mahasiswa::all())//pertemuan 12
-       ->addIndexColumn()//pertemuan 12
-      // ->make(true);//pertemuan 12
-      ->toJson();
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -37,7 +24,22 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        $prodi = Prodi::all();
+        return view('mahasiswa.create', compact('prodi'));
+    }
+
+    public function mhs_list() {
+        $mhs = Mahasiswa::with('mprodi')->get();
+        return Datatables::of($mhs)
+        ->addIndexColumn()
+        ->addColumn('action', function ($mhs) {
+            $action = '<a class="text-primary"
+            href="/mhs/edit/'.$mhs->nim.'">Edit</a>';
+            $action .= ' | <a class="text-danger"
+            href="/mhs/delete/'.$mhs->nim.'">Hapus</a>';
+            return $action;
+            })
+            ->make();
     }
 
     /**
@@ -48,51 +50,67 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nim' => 'required|digits:10',
+            'nama_lengkap' => 'required',
+            ]);
+        Mahasiswa::create($request->all());
+            return redirect()->route('mhs.index')
+            ->with('success','Data berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Mahasiswa $mahasiswa)
+    public function show($id)
     {
         //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mahasiswa $mahasiswa)
+    public function edit($id)
     {
-        //
+        $prodi = Prodi::all();
+        $mhs = Mahasiswa::find($id);
+        return view('mahasiswa.edit', compact('prodi', 'mhs'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mahasiswa $mahasiswa)
+    public function update(Request $request,Mahasiswa $mahasiswa)
     {
-        //
+        $request->validate([
+            'nama_lengkap' => 'required',
+            'alamat' => 'required',
+            'prodi' => 'required'
+            ]);
+            $mahasiswa->update($request->all());
+            return redirect()->route('mhs.index')
+            ->with('success','Data berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Mahasiswa  $mahasiswa
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Mahasiswa $mahasiswa)
     {
-        //
+        $mahasiswa->delete();
+        return redirect()->route('mhs.index')
+        ->with('success', 'Data Berhasil Dihapus');
     }
 }
