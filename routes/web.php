@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::get('mhs', 'MahasiswaController@index');//Praktek Pertemuan 10
+Route::get('dosen', 'DosenController@index');//Pert 11 : Membuat Halaman Template

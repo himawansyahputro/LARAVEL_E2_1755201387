@@ -15,6 +15,7 @@ class DosenController extends Controller
     public function index()
     {
         //
+        return view('layouts.app');//pert 11 : membuat Halaman Template
     }
 
     /**
