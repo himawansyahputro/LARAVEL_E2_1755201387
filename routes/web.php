@@ -1,38 +1,29 @@
-<?php
-
-use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-/*
-Route::get('mhs', 'MahasiswaController@index');//Praktek Pertemuan 10
-//Route::get('dosen', 'DosenController@index');//Pert 11 : Membuat Halaman Template
-Route::get('mhs_list', 'MahasiswaController@mhs_list')->name('mhs_list');//Praktek Pertemuan 12 */
-////////////////////////
-
-Route::get('/', 'MahasiswaController@index');
-//Mahasiswa (Routing Detail  satu persatu])
-Route::get('/mhs', 'MahasiswaController@index')->name('mhs.index');
-Route::get('/mhs/list', 'MahasiswaController@mhs_list')->name('mhs.list');
-Route::get('/mhs/create', 'MahasiswaController@create');
-Route::post('/mhs/store', 'MahasiswaController@store');
-Route::get('/mhs/edit/{nim}', 'MahasiswaController@edit');
-Route::put('/mhs/update/{mahasiswa:nim}', 'MahasiswaController@update')->name('mhs.update');
-Route::get('/mhs/delete/{mahasiswa:nim}', 'MahasiswaController@destroy')->name('mhs.delete');
-//Prodi Routing
-Route::resource('/prodi', 'ProdiController');
-
-Route::resource('/matkul', 'MatkulController');
+ <?php
+ use Illuminate\Support\Facades\Route;
+ /*
+ |--------------------------------------------------------------------------
+ | Web Routes
+ |--------------------------------------------------------------------------
+ |
+ | Here is where you can register web routes for your application. These
+ | routes are loaded by the RouteServiceProvider within a group which
+ | contains the "web" middleware group. Now create something great!
+ |
+ */
+ Route::get('/', function () {
+     return view('welcome');
+ });
+ Route::get('/', 'MahasiswaController@index');
+ //Mahasiswa (Route  lebih detail)
+ Route::get('/mhs', 'MahasiswaController@index')->name('mhs.index');
+ Route::get('/mhs/list', 'MahasiswaController@mhs_list')->name('mhs.list');
+ Route::get('/mhs/create', 'MahasiswaController@create');
+ Route::post('/mhs/store', 'MahasiswaController@store');
+ Route::get('/mhs/edit/{nim}', 'MahasiswaController@edit');
+ Route::put('/mhs/update/{mahasiswa:nim}', 'MahasiswaController@update')->name('mhs.update');
+ Route::get('/mhs/delete/{mahasiswa:nim}', 'MahasiswaController@destroy')->name('mhs.delete');
+//Prodi (Routing Framework)
+ 
+ Route::resource('/prodi', 'ProdiController');
+ 
+ Route::resource('/matkul', 'MatkulController');

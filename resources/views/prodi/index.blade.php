@@ -1,29 +1,42 @@
-<?php
-use Illuminate\Support\Facades\Route;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-Route::get('/', function () {
-    return view('welcome');
-});
-
-//Route::get('mhs', 'MahasiswaController@index'); 
-//Route::get('mhs_list', 'MahasiswaController@mhs_list')->name('mhs_list');
-Route::get('/', 'MahasiswaController@index');
-//Mahasiswa (Route dengan detail satu persatu)
-Route::get('/mhs', 'MahasiswaController@index')->name('mhs.index');
-Route::get('/mhs/list', 'MahasiswaController@mhs_list')->name('mhs.list');
-Route::get('/mhs/create', 'MahasiswaController@create');
-Route::post('/mhs/store', 'MahasiswaController@store');
-Route::get('/mhs/edit/{nim}', 'MahasiswaController@edit');
-Route::put('/mhs/update/{mahasiswa:nim}', 'MahasiswaController@update')->name('mhs.update');
-Route::get('/mhs/delete/{mahasiswa:nim}', 'MahasiswaController@destroy')->name('mhs.delete');
-//Prodi (Route Framework)
-Route::resource('/prodi', 'ProdiController');
+ @extends('layouts.app')
+ @section('title','Prodi Page')
+ @section('bread1','Prodi')
+ @section('bread2','Data')
+ @section('content')
+   <h3>Master Data Prodi</h3>
+   <p><a href="/prodi/create" class="btn btn-success btn-sm">Tambah</a></p>
+     @include('layouts.alert')
+   <table class="table table-striped" id="mhs-table">
+     <thead>
+       <tr>
+         <th>No</th>
+         <th>Kode Prodi</th>
+         <th>Nama Prodi</th>
+         <th>Kaprodi</th>
+         <th>Pilihan</th>
+       </tr>
+     </thead>
+     <tbody>
+       @forelse ($prodi as $item)
+       <tr>
+         <td>{{ $loop->index +1 }}</td>
+         <td>{{ $item->kode_prodi }}</td>
+         <td>{{ $item->nama_prodi }}</td>
+         <td>{{ $item->kaprodi }}</td>
+         <td class="d-flex">
+           <a href="{{ route('prodi.edit', $item->kode_prodi)}}" class="btn btn-success px-2 py-1 mr-2">Edit</a>
+           <form action="{{ route('prodi.destroy', $item->kode_prodi)}}" method="post">
+             @csrf
+             @method("delete")
+             <button type="submit" class="btn btn-danger px-2 py-1">Hapus</button>
+           </form>
+         </td>
+       </tr>
+       @empty
+           <tr>
+             <td colspan="6" class="text-center">Data masih kosong</td>
+           </tr>
+       @endforelse
+     </tbody>
+   </table>
+ @endsection
