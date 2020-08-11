@@ -35,8 +35,8 @@ class MatkulController extends Controller//new
     public function store(Request $request)//new
     {//new
         $request->validate([//new
-            'kode_matkul' => 'required|unique:matkul',//new
-            'nama_matkul' => 'required',//new
+            'kode_matakuliah' => 'required|unique:matkul',//new
+            'nama_matakuliah' => 'required',//new
             'sks' => 'required',//new
             'semester' => 'required',//new
         ]);//new
@@ -64,7 +64,7 @@ class MatkulController extends Controller//new
      */
     public function edit($id)//new
     {//new
-        $matkul = Matkul::where('kode_matkul', $id)->first();//new
+        $matkul = Matkul::where('kode_matakuliah', $id)->first();//new
         return view('matkul.edit', compact('matkul'));//new
     }//new
 
@@ -78,13 +78,13 @@ class MatkulController extends Controller//new
     public function update(Request $request, $id)//new
     {//new
         $request->validate([//new
-            'nama_matkul' => 'required',//new
+            'nama_matakuliah' => 'required',//new
             'sks' => 'required',//new
             'semester' => 'required',//new
         ]);//new
-        Matkul::where('kode_matkul', $id)//new
+        Matkul::where('kode_matakuliah', $id)//new
             ->update([//new
-                'nama_matkul' => $request->nama_matkul,//new
+                'nama_matakuliah' => $request->nama_matakuliah,//new
                 'sks' => $request->sks,//new
                 'semester' => $request->semester,//new
             ]);//new
@@ -99,7 +99,7 @@ class MatkulController extends Controller//new
      */
     public function destroy($id)//new
     {//new
-        Matkul::where('kode_matkul', $id)->delete();//new
+        Matkul::where('kode_matakuliah', $id)->delete();//new
         return redirect()->route('matkul.index')->with('success', 'Data Berhasil Dihapus');//new
     }//new
 }//new

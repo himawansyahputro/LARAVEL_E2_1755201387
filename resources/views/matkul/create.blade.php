@@ -8,23 +8,23 @@
  <form action="{{ route('matkul.store')}}" method="POST">
  @csrf
  <div class="form-group row">
-   <label for="kode_matkul" class="col-sm-12">Kode Matkul</label>
+   <label for="kode_matakuliah" class="col-sm-12">Kode Matkul</label>
      <div class="col-sm-3">
-     <input type="text" name="kode_matkul" class="form-control" id="kode_matkul"
+     <input type="text" name="kode_matakuliah" class="form-control" id="kode_matakuliah"
      placeholder="Masukan kode mata kuliah">
-     @error('kode_matkul')
-     <small id="kode_matkul" class="form-text text-danger">
+     @error('kode_matakuliah')
+     <small id="kode_matakuliah" class="form-text text-danger">
        {{ $message }}
      </small>
      @enderror
    </div>
  </div>
  <div class="form-group row">
-   <label for="nama_matkul" class="col-sm-12">Nama Matkul</label>
+   <label for="nama_matakuliah" class="col-sm-12">Nama Matkul</label>
    <div class="col-sm-5">
-   <input type="text" name="nama_matkul" class="form-control" id="nama_matkul" placeholder="Masukan nama mata kuliah">
-     @error('nama_matkul')
-       <small id="nama_matkul" class="form-text text-danger">
+   <input type="text" name="nama_matakuliah" class="form-control" id="nama_matakuliah" placeholder="Masukan nama mata kuliah">
+     @error('nama_matakuliah')
+       <small id="nama_matakuliah" class="form-text text-danger">
          {{ $message }}
        </small>
      @enderror

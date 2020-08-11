@@ -23,13 +23,13 @@
        @forelse ($matkul as $item)
            <tr>
              <td>{{ $loop->index + 1 }}</td>
-             <td>{{ $item->kode_matkul }}</td>
-             <td>{{ $item->nama_matkul }}</td>
+             <td>{{ $item->kode_matakuliah }}</td>
+             <td>{{ $item->nama_matakuliah }}</td>
              <td>{{ $item->sks }}</td>
              <td>{{ $item->semester }}</td>
              <td class="d-flex">
-               <a href="{{ route('matkul.edit', $item->kode_matkul)}}" class="btn btn-success px-2 py-1 mr-2">Edit</a>
-               <form action="{{ route('matkul.destroy', $item->kode_matkul)}}" method="POST">
+               <a href="{{ route('matkul.edit', $item->kode_matakuliah)}}" class="btn btn-success px-2 py-1 mr-2">Edit</a>
+               <form action="{{ route('matkul.destroy', $item->kode_matakuliah)}}" method="POST">
                  @csrf
                  @method('delete')
                  <button type="submit" class="btn btn-danger px-2 py-1">Delete</button>

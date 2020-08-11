@@ -14,8 +14,8 @@
      public function up()
      {
          Schema::create('matkul', function (Blueprint $table) {
-             $table->string('kode_matkul')->primary();
-             $table->string('nama_matkul');
+             $table->string('kode_matakuliah')->primary();
+             $table->string('nama_matakuliah');
              $table->string('sks');
              $table->string('semester');
              $table->timestamps();

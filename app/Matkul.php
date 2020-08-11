@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;//new
 class Matkul extends Model//new
 {//new
     protected $table = 'matkul';//new
-    protected $fillable = ['kode_matkul', 'nama_matkul', 'sks', 'semester'];//new
+    protected $fillable = ['kode_matakuliah', 'nama_matakuliah', 'sks', 'semester'];//new
 }//new
